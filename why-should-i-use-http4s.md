@@ -1,6 +1,6 @@
-# Why should I use http4s
+# Why should I use http4s?
 
-[Original source](https://www.reddit.com/r/scala/comments/5f5049/http4s_vs_finch_vs_akkahttp_vs/)
+[Original source here](https://www.reddit.com/r/scala/comments/5f5049/http4s_vs_finch_vs_akkahttp_vs/)
 
 > I've heard good things about http4s in the past. But at the same time, I can't find anything noticably larger than "hello world" or "todo app" built with it.
 
