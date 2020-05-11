@@ -87,6 +87,7 @@ bind :: (Float -> (Float,String)) -> ((Float,String) -> (Float,String))
 `bind` must serve two purposes: it must (1) apply f' to the correct part of g' x and (2) concatenate the string returned by g' with the string returned by f'.
 
 **Exercise One**
+
 Write the function bind.
 
 **Solution**
@@ -98,6 +99,7 @@ bind f' (gx,gs) = let (fx,fs) = f' gx in (fx,gs++fs)
 Given a pair of debuggable functions, f' and g', we can now compose them together to make a new debuggable function bind `f' . g'`. Write this composition as `f'*g'`. Even though the output of g' is incompatible with the input of f' we still have a nice easy way to concatenate their operations. And this suggests another question: is there an 'identity' debuggable function. The ordinary identity has these properties: `f . id = f` and `id . f = f.` So we're looking for a debuggable function, call it unit, such that `unit * f = f * unit = f`. Obviously we'd expect it to produce the empty debugging string and otherwise act a bit like the identity.
 
 **Exercise Two**
+
 Define unit.
 
 **Solution**
@@ -115,6 +117,7 @@ lift f x = (f x,"")
 or more simply, `lift f = unit . f`. The lifted version does much the same as the original function and, quite reasonably, it produces the empty string as a side effect.
 
 **Exercise Three**
+
 Show that
 
 ```Haskell
@@ -161,6 +164,7 @@ Here's a diagram showing how the whole process looks. We only want to write cbrt
 ```
 
 **Exercise Four**
+
 Write an implementation of bind.
 
 **Solution**
@@ -172,18 +176,20 @@ bind f x = concat (map f x)
 How do we write the identity function in multivalued form? The identity returns one argument, so a multivalued version should return a list of length one. Call this function unit.
 
 **Exercise Five**
+
 Define unit.
 
 **Solution**
 
 ````Haskell
 unit x = [x]
-```Haskell
+```
 
 
 Again, define `f * g = bind f . g` and `lift f = unit . f`. `lift` does exactly what you might expect. It turns an ordinary function into a multivalued one in the obvious way.
 
 **Exercise Six**
+
 Show that
 ```Haskell
 f * unit = unit * f = f
@@ -218,10 +224,14 @@ bind :: (a → StdGen → (b,StdGen)) → (StdGen → (a,StdGen)) → (StdGen �
 ```
 
 **Exercise Seven**
+
 Implement bind
 
 **Solution**
+
+```Haskell
 bind f x seed = let (x',seed') = x seed in f x' seed'
+```
 
 Now we need to find the 'identity' randomised function. This needs to be of type
 
@@ -232,6 +242,7 @@ unit :: a → (StdGen → (a,StdGen))
 and should leave the seed unmodified.
 
 **Exercise Eight**
+
 Implement unit.
 
 **Solution**
@@ -245,9 +256,11 @@ unit = (,)
 Yet again, define `f * g = bind f . g` and `lift f = unit . f`. `lift` does exactly what you might expect - it turns an ordinary function into a randomised one that leaves the seed unchanged.
 
 **Exercise Nine**
+
 Show that `f * unit = unit * f = f` and `lift f * lift g = lift (f.g`)
 
 **Monads**
+
 It's now time to step back and discern the common structure.
 
 Define
